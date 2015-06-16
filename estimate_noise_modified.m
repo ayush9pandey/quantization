@@ -2,7 +2,7 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise(signal,
 
     n_iir = length(iir);
     
-    
+	mp.Digits(100);    
     % Calculate Biquad filter coefficients
     for i=1:n_iir
         iir(i).sos_bqf = zeros(size(iir(i).sos));
@@ -26,6 +26,6 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise(signal,
     end
        
     % Calculate filter noise
-    mp(noise_df2,100) = (output_df2_single - output_df2);
-    mp(noise_bqf,100) = (output_bqf_single - output_bqf);
+    noise_df2 = (mp(output_df2_single) - mp(output_df2));
+    noise_bqf = (mp(output_bqf_single) - mp(output_bqf));
 end

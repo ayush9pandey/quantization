@@ -46,8 +46,8 @@ function check_digital_system_file(name, channel, filter_bank)
         if module_parameters.OFFSET_SW
             data = data - module_parameters.OFFSET;
         end
-	
-	[output_df2,output_bqf,noise_df2,noise_bqf,noise_df2_single,noise_bqf_single]=estimate_noise_file(data',online_filters);
+        module_parameters.GAIN
+	[output_df2,output_bqf,noise_df2,noise_bqf]=estimate_noise_file(data',online_filters);
         % Calculate digital noise
         %[output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise(data', online_filters);
 	%bypassing estimate noise, instead reading from a file and calling calculate noise
@@ -57,8 +57,8 @@ function check_digital_system_file(name, channel, filter_bank)
         output_bqf = output_bqf * module_parameters.GAIN;
         noise_df2 = noise_df2 * module_parameters.GAIN;
         noise_bqf = noise_bqf * module_parameters.GAIN;
-        noise_df2_single = noise_df2_single * module_parameters.GAIN;
-        noise_bqf_single = noise_bqf_single * module_parameters.GAIN;
+%         noise_df2_single = noise_df2_single * module_parameters.GAIN;
+%         noise_bqf_single = noise_bqf_single * module_parameters.GAIN;
 
         % Check LIMIT value
         if module_parameters.LIMIT_SW && max(abs(output_bqf)) > module_parameters.LIMIT
@@ -67,7 +67,7 @@ function check_digital_system_file(name, channel, filter_bank)
 
         % Plot power spectrum density of the digital noise
         plot_psd(data, output_df2, output_bqf, noise_df2, noise_bqf, channel, fs);
-        pause(3);
-        plot_psd(data, output_df2, output_bqf, noise_df2_single, noise_bqf_single, channel, fs);
+%         pause(3);
+%         plot_psd(data, output_df2, output_bqf, noise_df2_single, noise_bqf_single, channel, fs);
     end
 end

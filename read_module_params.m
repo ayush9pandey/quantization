@@ -2,7 +2,7 @@ function module_params = read_module_params(channel)
     % Function returns parameters of a filter module
     
     % Ezcaread module input and output keys; offset, gain and limit values
-    [~, input_key] = system(['ezcaread -n ' strrep(channel, '_IN1', '_SW1R')]);
+    [~, input_key] = system(['ezcaread -n ' strrep(channel, '_IN1', '_SW1R')])
     [~, output_key] = system(['ezcaread -n ' strrep(channel, '_IN1', '_SW2R')]);
     [~, offset] = system(['ezcaread -n ' strrep(channel, '_IN1', '_OFFSET')]);
     [~, gain] = system(['ezcaread -n ' strrep(channel, '_IN1', '_GAIN')]);

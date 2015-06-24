@@ -1,13 +1,13 @@
-function [output_df2, output_bqf, noise_df2, noise_bqf, noise_df2_single, noise_bqf_single] = estimate_noise_file(signal, iir)
+function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(signal, iir)
 
 	n_iir=length(iir)
 	len=length(signal)
-    output_df2=zeros(1,n_iir);
-	output_bqf=zeros(1,n_iir);
-    noise_df2=zeros(1,n_iir);
-    noise_bqf=zeros(1,n_iir);
-    noise_df2_single=zeros(1,n_iir);
-    noise_bqf_single=zeros(1,n_iir);
+    output_df2=zeros(1,len);
+	output_bqf=zeros(1,len);
+    noise_df2=zeros(1,len);
+    noise_bqf=zeros(1,len);
+%     noise_df2_single=zeros(1,len);
+%     noise_bqf_single=zeros(1,len);
 	fid=fopen('take_data.txt','w');
 	if fid == -1
 	     	disp(['Unable to open file take_data.txt']);
@@ -27,8 +27,8 @@ function [output_df2, output_bqf, noise_df2, noise_bqf, noise_df2_single, noise_
 
 	fid=fopen('take_data_signal.txt','w');
 	if fid == -1
-		disp(['Unable to open file take_data.txt']);
-        	return
+		disp(['Unable to open file take_data_signal.txt']);
+        return
     end
     fprintf(fid,'%d\n',length(signal));
 	for i=1:length(signal)
@@ -62,7 +62,11 @@ function [output_df2, output_bqf, noise_df2, noise_bqf, noise_df2_single, noise_
             
             
         	A=fscanf(fid,'%s',1);
-        	noise_bqf(j)=str2double(A);
+        	noise_df2_single(j)=str2double(A);
+            
+            
+        	A=fscanf(fid,'%s',1);
+        	noise_bqf_single(j)=str2double(A);
 	end
    
     end

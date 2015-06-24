@@ -1,5 +1,5 @@
 function signal = download_online_data(channel, T, fs)
-    conn = nds2.connection('fb', 8088);
+    conn = nds2.connection('192.168.113.202', 8088);
     conn.iterate(channel);
     
     for i = 1:T

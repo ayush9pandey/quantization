@@ -33,17 +33,18 @@ void main()
 {
     //printf("\n\n\n\n\nEntered Loop1\n\n\n");
 	//variable definitions 
-	int number, order,length;
+	int number, order;
+    long int ,*length;
     FILE *fi,*fo, *fs; //defining pointers to files for input file to be read and output file fo to be written
 
-    fs=fopen("take_data_signal.txt","r");
+    fs=fopen("take_data_signal.bin","rb");
 	if(fs==NULL)
 	{
 		printf("\nError Reading File2 \n");
 	}
-    fscanf(fs,"%d",&length);
+    fread(length,sizeof(long int),1,fs);
     fclose(fs);
-    printf("\n\n\n\n%d\n\n\n",length);
+    printf("\n\n\n\n%d\n\n\n",&length);
     //length=length+1;
 	//double **sos_bqf, **sos;
     //double sos[times][size],sos_bqf[times][size]; 

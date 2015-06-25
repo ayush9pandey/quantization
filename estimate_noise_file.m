@@ -1,5 +1,5 @@
 function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(signal, iir)
-    format longEng;
+    
 	n_iir=length(iir)
 	len=length(signal)
     output_df2=zeros(1,len);
@@ -10,15 +10,15 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(si
 %     noise_bqf_single=zeros(1,len);
 	fid=fopen('take_data.bin','wb');
 	if fid == -1
-	     	disp(['Unable to open file take_data.txt']);
-        	return
+        disp(['Unable to open file take_data.txt']);
+        return
     end
    
 	for i=1:n_iir
-        	fwrite(fid,iir(i).number);
-        	fwrite(fid,iir(i).order);
+        	fwrite(fid,iir(i).number,'int');
+        	fwrite(fid,iir(i).order,'int');
         	fwrite(fid,iir(i).g,'real*8');
-        	fwrite(fid,iir(i).sos,'real*8');
+        	fwrite(fid,iir(i).sos','real*8');
     end
         
   
@@ -29,8 +29,8 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(si
 		disp(['Unable to open file take_data_signal.txt']);
         return
     end
-    fwrite(fid,length(signal));
-	for i=1:length(signal)
+    fwrite(fid,len,'int');
+	for i=1:len
         fwrite(fid,signal(i),'real*8');
     end
         
@@ -46,18 +46,18 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(si
     end
     for i=1:n_iir
         
-        for j=1:len
+       
 	        
-        	output_df2(j)=fread(fid,1,'real*8');
-        
-        	
-        	output_bqf(j)=fread(fid,1,'real*8');
-        
-        	
-        	noise_df2(j)=fread(fid,1,'real*8');
-        
-        	
-        	noise_bqf(j)=fread(fid,1,'real*8');
+        output_df2=fread(fid,len,'real*8');
+
+
+        output_bqf=fread(fid,len,'real*8');
+
+
+        noise_df2=fread(fid,len,'real*8');
+
+
+        noise_bqf=fread(fid,len,'real*8');
             
 %             
 %         	A=fscanf(fid,'%s',1);
@@ -66,7 +66,7 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise_file(si
 %             
 %         	A=fscanf(fid,'%s',1);
 %         	noise_bqf_single(j)=str2double(A);
-	end
+
    
     end
     fclose(fid);

@@ -1,7 +1,7 @@
 function check_digital_system_file(name, channel, filter_bank)
     % Function checks noise of the digital filter modules
     % given the list of models
-
+    format longEng;
     % Get site parameters: IFO, ifo, site, chans directory, 
     % uapps directory, host name
     params = config();
@@ -29,7 +29,7 @@ function check_digital_system_file(name, channel, filter_bank)
     module_parameters = read_module_params(channel);
 
     % Filters that are switched on
-    online_filters = find_online_filters(modules(filter_bank), module_parameters);
+    online_filters = find_online_filters(modules(filter_bank), module_parameters)
 
     % Download data from the channel
     clear data

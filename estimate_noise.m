@@ -25,10 +25,13 @@ function [output_df2, output_bqf, noise_df2, noise_bqf] = estimate_noise(signal,
         output_bqf_single = calculate_noise(output_bqf_single, iir(i).sos_bqf, iir(i).g, 2);
         output_bqf = calculate_noise(output_bqf, iir(i).sos_bqf, iir(i).g, 3);
     end
-       
+       output_df2(1:10)
+       output_bqf(1:10)
     % Calculate filter noise
     noise_df2= float_double*(output_df2_single - output_df2);
     noise_bqf = float_double*(output_bqf_single - output_bqf);
+     noise_df2(1:10)
+       noise_bqf(1:10)
 %     length(output_df2_single)
 %     length(output_df2)
 %     length(output_bqf_single)
